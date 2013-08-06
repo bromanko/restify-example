@@ -72,6 +72,9 @@ server.get('/', function(req, res, next) {
   return next();
 });
 
+// Route with a pipeline of methods
+// The first function will ensure required params are passed
+// The second function performs our actual business logic
 server.get('/tasks', [validation.requireParams('status'), function(req, res, next) {
   res.json({
     tasks: [
