@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "restify": "~2.6.0",
-    "bunyan": "~0.21.4"
+    "bunyan": "~0.21.4",
+    "jiggler": "0.0.3"
   }
 }

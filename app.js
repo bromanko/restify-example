@@ -53,7 +53,8 @@ server.use(restify.bodyParser());
 // Authentication and authorization
 server.use(security.authenticate());
 
-//server.use(representation.responder());
+// Some convenience for transforming response objects
+server.use(representation.responder());
 
 if (CONFIG.server.auditLog) {
   server.on('after', restify.auditLogger({
