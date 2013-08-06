@@ -63,6 +63,16 @@ if (CONFIG.server.auditLog) {
 }
 
 
+// Example routes
+
+server.get('/', function(req, res, next) {
+  res.json({
+    version: '0.1'
+  });
+  return next();
+});
+
+
 server.listen(CONFIG.server.port, function() {
   server.log.info('%s listening at %s', server.name, server.url);
 });
