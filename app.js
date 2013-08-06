@@ -1,7 +1,8 @@
 var restify = require('restify')
     , Logger = require('bunyan')
     , security = require('./middleware/security')
-    , representation = require('./middleware/representation');
+    , representation = require('./middleware/representation')
+    , validation = require('./middleware/validation');
 
 // Pick your poison for config. Perhaps node-config.
 // For the purposes of this example I'll just use this object.
@@ -63,14 +64,32 @@ if (CONFIG.server.auditLog) {
 }
 
 
-// Example routes
-
+// Route with only business logic
 server.get('/', function(req, res, next) {
   res.json({
     version: '0.1'
   });
   return next();
 });
+
+server.get('/tasks', [validation.requireParams('status'), function(req, res, next) {
+  res.json({
+    tasks: [
+      {
+        name: 'Get groceries',
+        status: 'Not done'
+      },
+      {
+        name: 'Walk the cat',
+        status: 'Not done'
+      }
+    ]
+  });
+  return next();
+}]);
+
+// Route with a pipeline of its own
+
 
 
 server.listen(CONFIG.server.port, function() {
